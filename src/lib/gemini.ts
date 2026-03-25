@@ -1,7 +1,7 @@
 // Gemini API service for OCR text detection
 
-const GEMINI_API_KEY = 'AIzaSyDuM4mqyRGIXk3sWToeeoY6n7gxImb6MBE';
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+const GEMINI_API_KEY = 'enter your own API key';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
 export interface DetectedSignature {
   name: string;
