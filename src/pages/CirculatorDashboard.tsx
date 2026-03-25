@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -40,9 +40,6 @@ const CirculatorDashboard = () => {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment', width: 1280, height: 720 }
       });
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
-      }
       setStream(mediaStream);
       setIsCameraActive(true);
     } catch (err) {
@@ -50,6 +47,13 @@ const CirculatorDashboard = () => {
       alert('Unable to access camera. Please check permissions.');
     }
   }, []);
+
+  // Use an effect to attach the stream once the video element is actually rendered
+  useEffect(() => {
+    if (isCameraActive && videoRef.current && stream) {
+      videoRef.current.srcObject = stream;
+    }
+  }, [isCameraActive, stream]);
 
   const stopCamera = useCallback(() => {
     if (stream) {
